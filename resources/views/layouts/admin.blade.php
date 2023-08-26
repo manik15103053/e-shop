@@ -12,7 +12,7 @@
 
     @include('layouts.inc.styles')
     @stack('css')
-    
+
 </head>
 <body class="g-sidenav-show  bg-gray-200">
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
@@ -24,7 +24,7 @@
         </div>
         <hr class="horizontal light mt-0 mb-2">
         @include('layouts.inc.sidebar')
-       
+
       </aside>
       <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         <!-- Navbar -->
@@ -35,6 +35,16 @@
       @include('layouts.inc.plagin')
 
 @include('layouts.inc.scripts')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (session('status'))
+   <script>
+        swal({
+    title: "Success!",
+    text: "{{ session('status') }}",
+    icon: "success",
+    });
+   </script>
+@endif
 @stack('js')
 </body>
 </html>

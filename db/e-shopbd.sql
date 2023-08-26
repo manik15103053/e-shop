@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2023 at 03:03 PM
+-- Generation Time: Aug 26, 2023 at 08:10 PM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,8 +47,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `status`, `popular`, `meta_title`, `meta_description`, `meta_keywords`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Mobile Phone', 'mobile-phone', 'This is the best Mobile Phone', 1, 1, 'Mobile', 'Mobile Phone', 'Mobile Phone', '1693046625.jpg', '2023-08-26 04:43:45', '2023-08-26 04:43:45'),
-(2, 'Electronics', 'electronics', 'This is the best electronics', 1, 1, 'electronics', 'electronics', 'electronics', 'uploads/images/category/1693047092.jpg', '2023-08-26 04:51:32', '2023-08-26 04:51:32');
+(3, 'Mobile Phone', 'mobile-phone', 'This is the best Mobile Phone', 1, 0, 'Mobile Phone', 'This is the best Mobile Phone', 'Mobile Phone', 'uploads/images/category/1693064356.jpeg', '2023-08-26 09:37:31', '2023-08-26 09:39:16'),
+(4, 'Laptop', 'laptop', 'This is the best Laptop', 1, 1, 'Laptop', 'This is the best Laptop', 'This is the best Laptop', 'uploads/images/category/1693065470.jpg', '2023-08-26 09:57:50', '2023-08-26 09:57:50');
 
 -- --------------------------------------------------------
 
@@ -87,7 +87,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(5, '2023_08_26_063029_create_categories_table', 2);
+(5, '2023_08_26_063029_create_categories_table', 2),
+(6, '2023_08_26_162016_create_products_table', 3);
 
 -- --------------------------------------------------------
 
@@ -118,6 +119,39 @@ CREATE TABLE `personal_access_tokens` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cat_id` bigint(20) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `small_description` mediumtext DEFAULT NULL,
+  `description` longtext NOT NULL,
+  `original_price` varchar(191) NOT NULL,
+  `selling_price` varchar(191) NOT NULL,
+  `image` varchar(191) DEFAULT NULL,
+  `qty` varchar(191) NOT NULL,
+  `tax` varchar(191) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 0,
+  `trending` tinyint(4) DEFAULT NULL,
+  `meta_title` mediumtext NOT NULL,
+  `meta_keyword` mediumtext NOT NULL,
+  `meta_description` mediumtext NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `cat_id`, `name`, `small_description`, `description`, `original_price`, `selling_price`, `image`, `qty`, `tax`, `status`, `trending`, `meta_title`, `meta_keyword`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Samsung a57', 'This is the best product', 'This is the best product', '5000', '4500', 'uploads/images/product/1693070866.jpeg', '5', '20', 0, 0, 'This is the best product', 'This is the best product', 'This is the best product', '2023-08-26 11:27:46', '2023-08-26 11:27:46');
 
 -- --------------------------------------------------------
 
@@ -183,6 +217,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -197,7 +237,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -209,13 +249,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
