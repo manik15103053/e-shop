@@ -67,7 +67,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
                                             <label for="image">Image</label>
-                                            <input type="file" class="form-control" name="image" placeholder="Enter image" value="{{ old('image') }}" required>
+                                            <input type="file" class="form-control" name="image" placeholder="Enter image" value="{{ old('image') }}" >
                                             <span class="text-danger">@error('image'){{ $message }}@enderror</span>
                                             <img src="{{ asset($product->image) }}" alt="Product Image" width="65" height="55">
                                         </div>

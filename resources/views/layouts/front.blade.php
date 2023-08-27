@@ -12,6 +12,8 @@
     </title>
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/owl.carousel.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/css/owl.theme.default.min.css') }}" rel="stylesheet">
 
     @stack('css')
 
@@ -21,7 +23,9 @@
     <div class="content">
         @yield('main-content')
     </div>
-<script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}" defer></script>
+<script src="{{ asset('frontend/js/jquery-3.7.0.min.js') }}" ></script>
+<script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}" ></script>
+<script src="{{ asset('frontend/js/owl.carousel.min.js') }}" ></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (session('status'))
    <script>
