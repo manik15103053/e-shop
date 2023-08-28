@@ -63,6 +63,13 @@
                                             <span class="text-danger">@error('name'){{ $message }}@enderror</span>
                                         </div>
                                     </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="slug">Slug</label>
+                                            <input type="text" class="form-control" name="slug" placeholder="Enter slug" value="{{ $product->slug ?? old('slug') }}" required>
+                                            <span class="text-danger">@error('slug'){{ $message }}@enderror</span>
+                                        </div>
+                                    </div>
 
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">

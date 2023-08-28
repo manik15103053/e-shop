@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
@@ -28,6 +29,7 @@ class ProductController extends Controller
         $request->validate([
             'cat_id' => 'required',
             'name' => 'required',
+            'slug' => 'required',
             'original_price' => 'required',
             'selling_price' => 'required',
             'qty' => 'required',
@@ -50,6 +52,7 @@ class ProductController extends Controller
 
 
         $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
         $product->cat_id = $request->cat_id;
         $product->small_description = $request->small_description;
         $product->original_price = $request->original_price;
@@ -79,6 +82,7 @@ class ProductController extends Controller
         $request->validate([
             'cat_id' => 'required',
             'name' => 'required',
+            'slug' => 'required',
             'original_price' => 'required',
             'selling_price' => 'required',
             'qty' => 'required',
@@ -113,6 +117,7 @@ class ProductController extends Controller
 
 
         $product->name = $request->name;
+        $product->slug = Str::slug($request->name);
         $product->cat_id = $request->cat_id;
         $product->small_description = $request->small_description;
         $product->original_price = $request->original_price;

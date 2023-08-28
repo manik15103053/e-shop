@@ -59,8 +59,15 @@
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
                                             <label for="name">Product Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter Category name" value="{{ old('name') }}" required>
+                                            <input type="text" class="form-control" name="name" placeholder="Enter name" value="{{ old('name') }}" required>
                                             <span class="text-danger">@error('name'){{ $message }}@enderror</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group mb-3">
+                                            <label for="slug">Slug</label>
+                                            <input type="text" class="form-control" name="slug" placeholder="Enter Slug" value="{{ old('slug') }}" required>
+                                            <span class="text-danger">@error('slug'){{ $message }}@enderror</span>
                                         </div>
                                     </div>
 

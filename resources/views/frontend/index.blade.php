@@ -26,6 +26,28 @@ E-Shop
         </div>
     </div>
 </div>
+<div class="py-3">
+    <div class="container">
+        <div class="row">
+            <h2>Trending Category</h2>
+            <div class="owl-carousel feature-carousel owl-theme">
+                @foreach ($categories as $cat)
+                    <div class="item">
+                        <a href="{{ route('category-product', $cat->slug) }}">
+                            <div class="card">
+                                <img src="{{ asset($cat->image) }}" alt="Category Image"  height="250px">
+                                <div class="card-body">
+                                    <h5>{{ $cat->name }}</h5>
+                                    <p>{{ $cat->description }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 @push('js')
     <script>

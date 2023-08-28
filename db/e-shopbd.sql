@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2023 at 08:10 PM
+-- Generation Time: Aug 28, 2023 at 09:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -47,8 +47,11 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `status`, `popular`, `meta_title`, `meta_description`, `meta_keywords`, `image`, `created_at`, `updated_at`) VALUES
-(3, 'Mobile Phone', 'mobile-phone', 'This is the best Mobile Phone', 1, 0, 'Mobile Phone', 'This is the best Mobile Phone', 'Mobile Phone', 'uploads/images/category/1693064356.jpeg', '2023-08-26 09:37:31', '2023-08-26 09:39:16'),
-(4, 'Laptop', 'laptop', 'This is the best Laptop', 1, 1, 'Laptop', 'This is the best Laptop', 'This is the best Laptop', 'uploads/images/category/1693065470.jpg', '2023-08-26 09:57:50', '2023-08-26 09:57:50');
+(3, 'Mobile Phone', 'mobile-phone', 'This is the best Mobile Phone', 0, 1, 'Mobile Phone', 'This is the best Mobile Phone', 'Mobile Phone', 'uploads/images/category/1693064356.jpeg', '2023-08-26 09:37:31', '2023-08-28 10:05:32'),
+(4, 'Laptop', 'laptop', 'This is the best Laptop', 0, 1, 'Laptop', 'This is the best Laptop', 'This is the best Laptop', 'uploads/images/category/1693065470.jpg', '2023-08-26 09:57:50', '2023-08-28 10:05:22'),
+(5, 'Camera', 'camera', 'This is the best Camera', 0, 1, 'This is the best Camera', 'This is the best Camera', 'This is the best Camera', 'uploads/images/category/1693238817.png', '2023-08-28 10:06:57', '2023-08-28 10:06:57'),
+(6, 'Monitor', 'monitor', 'This is the best monitor', 0, 1, 'This is the best monitor', 'This is the best monitor', 'This is the best monitor', 'uploads/images/category/1693238865.jpg', '2023-08-28 10:07:45', '2023-08-28 10:07:45'),
+(7, 'Smart watch', 'smart-watch', 'This is the best smart watch', 0, 1, 'This is the best smart watch', 'This is the best smart watch', 'This is the best smart watch', 'uploads/images/category/1693238911.png', '2023-08-28 10:08:31', '2023-08-28 10:08:31');
 
 -- --------------------------------------------------------
 
@@ -130,6 +133,7 @@ CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `cat_id` bigint(20) NOT NULL,
   `name` varchar(191) NOT NULL,
+  `slug` varchar(255) DEFAULT NULL,
   `small_description` mediumtext DEFAULT NULL,
   `description` longtext NOT NULL,
   `original_price` varchar(191) NOT NULL,
@@ -150,8 +154,12 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `cat_id`, `name`, `small_description`, `description`, `original_price`, `selling_price`, `image`, `qty`, `tax`, `status`, `trending`, `meta_title`, `meta_keyword`, `meta_description`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Samsung a57', 'This is the best product', 'This is the best product', '5000', '4500', 'uploads/images/product/1693070866.jpeg', '5', '20', 0, 0, 'This is the best product', 'This is the best product', 'This is the best product', '2023-08-26 11:27:46', '2023-08-26 11:27:46');
+INSERT INTO `products` (`id`, `cat_id`, `name`, `slug`, `small_description`, `description`, `original_price`, `selling_price`, `image`, `qty`, `tax`, `status`, `trending`, `meta_title`, `meta_keyword`, `meta_description`, `created_at`, `updated_at`) VALUES
+(1, 3, 'Samsung a57', 'samsung-a57', 'This is the best product', 'This is the best product', '5000', '4500', 'uploads/images/product/1693070866.jpeg', '5', '20', 1, 0, 'This is the best product', 'This is the best product', 'This is the best product', '2023-08-26 11:27:46', '2023-08-28 11:15:23'),
+(3, 3, 'iPhone 13maxpro', 'iphone-13maxpro', 'This is This is best title', 'This is This is best title', '21000', '20000', 'uploads/images/product/1693161809.jpg', '4', '10', 1, 1, 'This is This is best title', 'This is This is best title', 'This is This is best title', '2023-08-27 12:43:29', '2023-08-28 11:15:06'),
+(4, 3, 'Oppo a57', 'oppo-a57', 'This is This is best title', 'This is This is best title', '10000', '9000', 'uploads/images/product/1693161904.jpg', '4', '40', 1, 1, 'This is This is best title', 'This is This is best title', 'This is This is best title', '2023-08-27 12:44:39', '2023-08-28 11:14:43'),
+(5, 4, 'Lenovo', 'lenovo', 'This is This is best title', 'This is This is best title', '5000', '4000', 'uploads/images/product/1693161957.png', '4', '20', 1, 1, 'This is This is best title', 'This is This is best title', 'This is This is best title', '2023-08-27 12:45:57', '2023-08-28 11:14:23'),
+(6, 4, 'HP Laptop', 'hp-laptop', 'This is the best laptop', 'This is the best laptop', '50000', '45000', 'uploads/images/product/1693162012.jpg', '4', '20', 1, 1, 'This is the best laptop', 'This is the best laptop', 'This is the best laptop', '2023-08-27 12:46:52', '2023-08-28 11:14:09');
 
 -- --------------------------------------------------------
 
@@ -237,7 +245,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -261,7 +269,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
