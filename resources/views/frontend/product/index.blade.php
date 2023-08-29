@@ -6,7 +6,12 @@
 @section('main-content')
 <div class="py-3 shadow-sm p-3 mb-5  rounded bg-warning border-top">
     <div class="container">
-        <h6 class="mb-0">Collection / {{ $category->name }}</h6>
+        <h6 class="mb-0">
+            Collection / 
+            <a href="{{ route('category', $category->slug) }}">
+
+                {{ $category->name }}</h6>
+            </a>
     </div>
 </div>
     <div class="py-5">

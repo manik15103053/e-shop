@@ -13,11 +13,40 @@
             <a class="nav-link" href="{{ route('category') }}">Category</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" href="{{ route('cart-details') }}">Cart</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+          @guest
+          @if(Route::has('login'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('login') }}">Login</a>
+            </li>
+          @endif
+          @if(Route::has('register'))
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('register') }}">Register</a>
+            </li>
+          @endif
+          @else
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              {{ Auth::user()->name }}
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Logout
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+                </li>
+            </ul>
           </li>
+          @endguest
+          
+          
         </ul>
       </div>
     </div>
