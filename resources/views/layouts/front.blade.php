@@ -48,7 +48,7 @@
         swal({
     // title: "Success!",
     text: "{{ session('status') }}",
-    // icon: "success",
+    icon: "success",
     });
    </script>
 @endif

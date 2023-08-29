@@ -9,11 +9,11 @@
                 <a href="{{ route('category') }}">
                     Collection
                 </a>
-                 / 
+                 /
                  <a href="{{ route('category', $product->category->slug) }}">
                     {{ $product->category->name }}
                 </a>
-                  / 
+                  /
                   <a href="{{ route('category',[$product->category->slug,  $product->slug]) }}">
                     {{ $product->name }}
                 </a>
@@ -74,37 +74,4 @@
     </div>
 @endsection
 
-@push('js')
-    <script>
-        $(document).ready(function(){
 
-            $('.addToCartBtn').click(function(e){
-                e.preventDefault();
-
-                var product_id = $(this).closest('.product_data').find('.prod_id').val();
-                var product_qty = $(this).closest('.product_data').find('.qty-input').val();
-
-                // $.ajaxSetup({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     }
-                // });
-
-                $.ajax({
-                    method: "post", // Use POST instead of GET
-                    url: "{{ route('add-to-cart') }}",
-                    data: {
-                        'product_id': product_id,
-                        'product_qty': product_qty,
-                        '_token': '{{ csrf_token() }}',
-                    },
-                    success: function(response){
-                        swal(response.status);
-                    }
-
-                });
-            });
-
-        });
-    </script>
-@endpush

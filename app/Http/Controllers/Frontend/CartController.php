@@ -47,7 +47,7 @@ class CartController extends Controller
     $cartItems = Cart::where('user_id', Auth::id())->get();
     return view('frontend.product.card', compact('cartItems'));
 
-   } 
+   }
 
    public function deleteCartItem(Request $request)
 {
@@ -68,5 +68,23 @@ class CartController extends Controller
         return response()->json(['status' => 'Login to Continue'], 401);
     }
 }
+
+    public function updateCart(Request $request){
+
+        $prod_id = $request->input('prod_id');
+        $prod_qty = $request->input('prod_qty');
+
+        if(Auth::check()){
+            $cartItem = Cart::where('prod_id', $prod_id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+            if($cartItem){
+                $cartItem->prod_qty = $prod_qty;
+                $cartItem->update();
+                return response()->json(['status' => 'Quantity Updated']);
+            }
+        }
+    }
 
 }
