@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +20,6 @@ Route::get('/update-card', [CartController::class,'updateCart'])->name('update-c
 Route::middleware(['auth'])->group(function(){
 
     Route::get('cart-details',[CartController::class,'cartDetails'])->name('cart-details');
+    Route::get('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
+    Route::post('/place-order',[CheckoutController::class,'placeOrder'])->name('place-order');
 });

@@ -11,6 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     @include('layouts.inc.styles')
+
     @stack('css')
 
 </head>

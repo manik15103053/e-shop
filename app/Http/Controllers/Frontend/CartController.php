@@ -82,7 +82,9 @@ class CartController extends Controller
             if($cartItem){
                 $cartItem->prod_qty = $prod_qty;
                 $cartItem->update();
-                return response()->json(['status' => 'Quantity Updated']);
+
+
+                return response()->json(['success' => 'Quantity Updated']);
             }
         }
     }

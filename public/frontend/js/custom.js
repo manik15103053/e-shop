@@ -81,6 +81,7 @@ $(document).ready(function(){
     $('.changeQty').click(function(e){
         var prod_id = $(this).closest('.product_data').find('.prod_id').val();
         var prod_qty = $(this).closest('.product_data').find('.qty-input').val();
+        updateTotal();
         data = {
             'prod_id' : prod_id,
             'prod_qty' : prod_qty,
@@ -91,11 +92,28 @@ $(document).ready(function(){
             url: '/update-card',
             data: data,
             success: function(response){
-                window.location.reload();
-                
+                if(response.success){
+                    toastr.success('Quantity Updated');
+                }else{
+                    toastr.error('Quantity Not Updated');
+                }
+
             }
         });
     });
 
+   //Total Price Calculate
 
+   function updateTotal() {
+        var total = 0;
+        $('.product_data').each(function () {
+            var price = parseFloat($(this).find('.col-md-2 h6').data('price'));
+            var quantity = parseInt($(this).find('.qty-input').val());
+            total += price * quantity;
+        });
+        $('#total').text('Total: Rs ' + total.toFixed(2));
+    }
+
+    // Initial total calculation
+    updateTotal();
 });
