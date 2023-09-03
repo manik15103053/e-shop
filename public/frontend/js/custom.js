@@ -21,7 +21,11 @@ $(document).ready(function(){
                 '_token': '{{ csrf_token() }}',
             },
             success: function(response){
-                swal(response.status);
+                if(response.success){
+                    toastr.success('added to cart successfully');
+                }else{
+                    toastr.error('already added to cart');
+                }
             },
 
 
@@ -73,7 +77,13 @@ $(document).ready(function(){
         },
         success:function (response){
             window.location.reload();
-            swal("", response.status, "success");
+            if(response.success){
+                toastr.success('Product Deleted Successfully');
+            }else{
+                toastr.error('Product not found in cart');
+            }
+
+
         }
         });
     });

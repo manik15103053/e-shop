@@ -3,6 +3,7 @@
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\FrontendController;
+use App\Http\Controllers\Frontend\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -17,9 +18,12 @@ Route::get('category-product-details/{cat_slug}/{pro_slug}',[FrontendController:
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-cart');
 Route::get('/delete-cart-item', [CartController::class,'deleteCartItem'])->name('delete-cart-item');
 Route::get('/update-card', [CartController::class,'updateCart'])->name('update-cart');
-Route::middleware(['auth'])->group(function(){
 
+
+Route::middleware(['auth'])->group(function(){
     Route::get('cart-details',[CartController::class,'cartDetails'])->name('cart-details');
     Route::get('/checkout', [CheckoutController::class,'checkout'])->name('checkout');
     Route::post('/place-order',[CheckoutController::class,'placeOrder'])->name('place-order');
+    Route::get('/my-order',[UserController::class,'myOrder'])->name('my-order');
+    Route::get('/order-details/{id}', [UserController::class,'orderDetails'])->name('order-details');
 });

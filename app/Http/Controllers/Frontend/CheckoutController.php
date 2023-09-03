@@ -38,7 +38,7 @@ class CheckoutController extends Controller
 }
 
     public function placeOrder(Request $request){
-
+   
         $order = new Order();
         $order->user_id = Auth::id();
         $order->fname = $request->fname;
@@ -52,6 +52,16 @@ class CheckoutController extends Controller
         $order->country = $request->country;
         $order->pincode = $request->pincode;
         $order->tracking_no = 'sharma'.rand(1111, 9999);
+
+        $total = 0;
+
+        $cartTotal_items = Cart::where('user_id', Auth::id())->get();
+
+        foreach($cartTotal_items as $item){
+            $total += $item->product->selling_price;
+        }
+
+        $order->total_price = $total;
         $order->save();
 
         $order_id = $order->id;

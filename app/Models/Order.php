@@ -26,6 +26,12 @@ class Order extends Model
         'pincode',
         'status',
         'message',
+        'total_price',
         'tracking_no',
     ];
+
+
+    public function orderItems(){
+        return $this->hasMany(OrderItem::class);
+    }
 }

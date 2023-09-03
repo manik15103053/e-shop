@@ -30,7 +30,7 @@ class CartController extends Controller
         ->first();
 
     if ($existingCartItem) {
-        return response()->json(['status' => $product->name . ' already added to cart']);
+        return response()->json(['error' => $product->name . 'already added to cart']);
     }
 
     $cartItem = new Cart();
@@ -39,7 +39,7 @@ class CartController extends Controller
     $cartItem->prod_qty = $product_qty;
     $cartItem->save();
 
-    return response()->json(['status' => $product->name . ' added to cart successfully']);
+    return response()->json(['success' => $product->name . 'added to cart successfully']);
 }
 
    public function cartDetails(){
@@ -60,12 +60,12 @@ class CartController extends Controller
 
         if ($cartItem) {
             $cartItem->delete();
-            return response()->json(['status' => 'Product Deleted Successfully']);
+            return response()->json(['success' => 'Product Deleted Successfully']);
         } else {
-            return response()->json(['status' => 'Product not found in cart'], 404);
+            return response()->json(['error' => 'Product not found in cart'], 404);
         }
     } else {
-        return response()->json(['status' => 'Login to Continue'], 401);
+        return response()->json(['error' => 'Login to Continue'], 401);
     }
 }
 

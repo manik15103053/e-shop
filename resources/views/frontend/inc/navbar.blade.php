@@ -32,6 +32,7 @@
               {{ Auth::user()->name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="{{ route('my-order') }}">My Order</a></li>
                 <li><a class="dropdown-item" href="#">Profile</a></li>
                 <li>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
