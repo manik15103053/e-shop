@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     $('.addToCartBtn').click(function(e){
         e.preventDefault();
-
+        
         var product_id = $(this).closest('.product_data').find('.prod_id').val();
         var product_qty = $(this).closest('.product_data').find('.qty-input').val();
 
@@ -26,6 +26,7 @@ $(document).ready(function(){
                 }else{
                     toastr.error('already added to cart');
                 }
+                loadCart()
             },
 
 
@@ -65,7 +66,6 @@ $(document).ready(function(){
 
     $('.delete-cart-item').click(function(e){
         e.preventDefault();
-
         var prod_id = $(this).closest('.product_data').find('.prod_id').val();
 
         $.ajax({
@@ -153,8 +153,65 @@ $(document).ready(function(){
                 } else {
                     toastr.error(response.error);
                 }
+                loadWishlit()
             }
         });
     });
 
+    //remove Wishlist
+    $('.removeWishlist').click(function(e){
+        e.preventDefault();
+
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method:'get',
+            url: '/remove-wishlist',
+            data: {
+                'product_id' : product_id
+            },
+            success:function(response){
+                window.location.reload();
+                if (response.success) {
+                    toastr.success(response.success);
+                } else {
+                    toastr.error(response.error);
+                }
+            }
+        });
+
+    });
+
+    //Cart count
+
+    function loadCart(){
+        $.ajax({
+            method: 'get',
+            url: '/load-cart-data',
+            success:function(response){
+                $('.cart-count').html('');
+                $('.cart-count').html(response.count);
+            }
+        });
+    }
+
+    //load wishlist
+    function loadWishlit(){
+        $.ajax({
+            method:'get',
+            url: '/load-wishlit',
+            success:function(response){
+                $('.wishlist-count').html('');
+                $('.wishlist-count').html(response.count);
+            }
+        });
+    }
+    loadWishlit()
+    loadCart()
 });

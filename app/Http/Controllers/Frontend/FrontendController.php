@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Exists;
@@ -76,5 +77,40 @@ class FrontendController extends Controller
         }else{
             return response()->json(['error' => 'Please login first.']);
         }
+    }
+
+    public function viewWishlist(){
+        $wishlists = Wishlist::where('user_id', Auth::id())->get();
+        return view('frontend.order.wishlist-view', compact('wishlists'));
+    }
+
+    public function removeWishlist(Request $request){
+
+        if(Auth::check()){
+            $product_id = $request->input('product_id');
+
+            $product = Product::find($product_id);
+            
+            if($product){
+                $check = Wishlist::where('user_id', Auth::id())->where('prod_id', $product_id)->first();
+                $check->delete();
+                return response()->json(['error' => 'Wishlist removed successfully.']);
+                
+            }else{
+                return response()->json(['error' => 'Product does not exists.']);
+            }
+        }else{
+            return response()->json(['error' => 'Please login first.']);
+        }
+    }
+
+    public function loadCart(){
+        $cartCount = Cart::where('user_id', Auth::id())->count();
+        return response()->json(['count' => $cartCount]);
+    }
+
+    public function loadWishlist(){
+        $wishlistCount = Wishlist::where('user_id', Auth::id())->count();
+        return response()->json(['count' => $wishlistCount]);
     }
 }

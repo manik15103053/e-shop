@@ -19,7 +19,10 @@ Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-car
 Route::get('/delete-cart-item', [CartController::class,'deleteCartItem'])->name('delete-cart-item');
 Route::get('/update-card', [CartController::class,'updateCart'])->name('update-cart');
 Route::post('/add-to-wishlist',[FrontendController::class,'addToWishlist'])->name('add-to-wishlist');
-
+Route::get('/wishlist-view',[FrontendController::class,'viewWishlist'])->name('view-wishlist');
+Route::get('/remove-wishlist',[FrontendController::class,'removeWishlist'])->name('remove-wishlist');
+Route::get('/load-cart-data',[FrontendController::class,'loadCart'])->name('load-cart');
+Route::get('/load-wishlit', [FrontendController::class,'loadWishlist'])->name('load-wishlist');
 
 Route::middleware(['auth'])->group(function(){
     Route::get('cart-details',[CartController::class,'cartDetails'])->name('cart-details');
