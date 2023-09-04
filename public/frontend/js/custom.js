@@ -126,4 +126,35 @@ $(document).ready(function(){
 
     // Initial total calculation
     updateTotal();
+
+
+    //Add To Wishlist
+    $('.addToWishlist').click(function(e){
+        e.preventDefault();
+
+        var product_id = $(this).closest('.product_data').find('.prod_id').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            method: 'post',
+            url: '/add-to-wishlist',
+            data:{
+                'product_id': product_id,
+                // '_token': '{{ csrf_token() }}',
+            },
+            success:function(response){
+                if (response.success) {
+                    toastr.success(response.success);
+                } else {
+                    toastr.error(response.error);
+                }
+            }
+        });
+    });
+
 });

@@ -18,6 +18,7 @@ Route::get('category-product-details/{cat_slug}/{pro_slug}',[FrontendController:
 Route::get('/add-to-cart',[CartController::class,'addToCart'])->name('add-to-cart');
 Route::get('/delete-cart-item', [CartController::class,'deleteCartItem'])->name('delete-cart-item');
 Route::get('/update-card', [CartController::class,'updateCart'])->name('update-cart');
+Route::post('/add-to-wishlist',[FrontendController::class,'addToWishlist'])->name('add-to-wishlist');
 
 
 Route::middleware(['auth'])->group(function(){

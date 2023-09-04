@@ -2,6 +2,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
@@ -26,4 +28,12 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
         Route::post('/update/{id}',[ProductController::class, 'update'])->name('update');
         Route::get('/delete/{id}',[ProductController::class, 'delete'])->name('delete');
     });
+
+    Route::get('/orders',[OrderController::class, 'order'])->name('admin.order');
+    Route::get('/orders-view/{id}',[OrderController::class, 'orderView'])->name('admin.order-view');
+    Route::post('order-status/{id}',[OrderController::class,'orderStatus'])->name('admin.order-status');
+    Route::get('order-history',[OrderController::class,'orderHistory'])->name('order-history');
+    Route::get('/users',[DashboardController::class,'user'])->name('user');
+    Route::get('/user-details/{id}',[DashboardController::class,'userDetails'])->name('user.details');
+
 });

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\Wishlist;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Exists;
 
 class FrontendController extends Controller
 {
@@ -44,6 +47,34 @@ class FrontendController extends Controller
             }
         }else{
             return redirect('/')->with('status', 'No such category found');
+        }
+    }
+
+    public function addToWishlist(Request $request){
+        if(Auth::check()){
+            $product_id = $request->input('product_id');
+
+            $product = Product::find($product_id);
+            
+            if($product){
+                $check = Wishlist::where('user_id', Auth::id())->where('prod_id', $product_id)->first();
+                if(!$check){
+                    $wishlist = new Wishlist();
+                    $wishlist->prod_id = $product_id;
+                    $wishlist->user_id = Auth::id();
+                    $wishlist->save();
+                    return response()->json(['success' => 'Wishlist added successfully.']);
+                }else{
+                    $check->delete();
+                    return response()->json(['error' => 'Wishlist removed successfully.']);
+                }
+                
+                
+            }else{
+                return response()->json(['error' => 'Product does not exists.']);
+            }
+        }else{
+            return response()->json(['error' => 'Please login first.']);
         }
     }
 }
