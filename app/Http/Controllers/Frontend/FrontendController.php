@@ -7,6 +7,8 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Rating;
+use App\Models\Review;
 use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Exists;
@@ -42,7 +44,20 @@ class FrontendController extends Controller
 
             if(Product::where('slug', $pro_slug)->exists()){
                 $product = Product::where('slug', $pro_slug)->first();
-                return view('frontend.product.product-details', compact('product'));
+                $ratings = Rating::where('prod_id', $product->id)->get();
+                $user_rating = Rating::where('prod_id', $product->id)->where('user_id', Auth::id())->first();
+
+                $prod_review = Review::where('prod_id', $product->id)->where('user_id', Auth::id())->first();
+                $total_reviews = Review::where('prod_id', $product->id)->get();
+                
+                $rating_sum = Rating::where('prod_id', $product->id)->sum('stars_rated');
+                if($ratings->count() > 0){
+                    $rating_value = $rating_sum/$ratings->count();
+                }else{
+                    $rating_value = 0;
+                }
+                
+                return view('frontend.product.product-details', compact('product', 'ratings', 'rating_value', 'user_rating', 'prod_review', 'total_reviews'));
             }else{
                 return redirect('/')->with('status', 'The link was broken');
             }
@@ -112,5 +127,39 @@ class FrontendController extends Controller
     public function loadWishlist(){
         $wishlistCount = Wishlist::where('user_id', Auth::id())->count();
         return response()->json(['count' => $wishlistCount]);
+    }
+
+    public function productList(){
+        
+        $products = Product::select('name')->where('status', 1)->get();
+
+        $data = [];
+
+        foreach($products as $item){
+            $data[] = $item['name'];
+        }
+
+        return $data;
+    }
+
+    public function searchPro(Request $request){
+
+
+
+        $serch_product = $request->input('serch_product');
+
+        if($serch_product != ""){
+            
+            $product = Product::where("name", "LIKE", "%$serch_product%")->first();
+
+            if($product){
+                return redirect('category-product-details/'.$product->category->slug.'/'.$product->slug)->with('product', $product->name);
+            }else{
+                return redirect()->back()->with('error', 'Sorry no Product match your search');
+            }
+        }else{
+            
+            return redirect()->back();
+        }
     }
 }

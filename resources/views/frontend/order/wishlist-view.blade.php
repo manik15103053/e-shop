@@ -20,7 +20,7 @@ User Wishlist
 </div>
 <div class="container my-5">
     <div class="card shadow">
-        <div class="card-body">
+        <div class="card-body wishlists">
             @if ($wishlists->count() > 0)
             @foreach($wishlists as $item)
             <div class="row product_data">

@@ -1,6 +1,15 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
       <a class="navbar-brand" href="{{ route('index') }}">E-Shop</a>
+      <div class="search-bar">
+        <form action="{{ route('serch-product') }}" method="post">
+          @csrf
+          <div class="input-group">
+            <input type="search" class="form-control" id="serch_product" value="{{ Session::get('product') ? Session::get('product') : old('serch_product') }}" placeholder="Search Product" name="serch_product" required>
+            <button type="submit" class="input-group-text"><i class="fa fa-search"></i></button>
+          </div>
+        </form>    
+      </div> 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

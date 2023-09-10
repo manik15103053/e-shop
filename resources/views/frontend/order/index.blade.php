@@ -23,9 +23,12 @@ My Order
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($orders as $key=> $order)
+                                @php
+                                    $serialNumber = ($orders->currentPage() - 1) * $orders->perPage() + 1;
+                                @endphp
+                                @foreach ($orders as  $order)
                                     <tr>
-                                        <td>{{ $key + 1}}</td>
+                                        <td>{{ $serialNumber++ }}</td>
                                         <td>{{ $order->tracking_no }}</td>
                                         <td>{{ $order->total_price }}</td>
                                         <td>
@@ -42,7 +45,11 @@ My Order
                                 @endforeach
                             </tbody>
                         </table>
+                        <center>
+                            {{ $orders->links() }}
+                        </center>
                     </div>
+                   
                 </div>
             </div>
         </div>

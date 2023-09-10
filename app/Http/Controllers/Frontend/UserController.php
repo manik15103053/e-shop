@@ -11,7 +11,7 @@ class UserController extends Controller
 {
     public function myOrder(){
 
-        $orders = Order::where('user_id', Auth::id())->get();
+        $orders = Order::where('user_id', Auth::id())->orderBy('id', 'desc')->paginate(8);
         return view('frontend.order.index', compact('orders'));
     }
 

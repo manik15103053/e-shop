@@ -28,6 +28,8 @@ class Order extends Model
         'message',
         'total_price',
         'tracking_no',
+        'payment_mode',
+        'payment_id',
     ];
 
 

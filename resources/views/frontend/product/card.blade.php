@@ -19,9 +19,9 @@
     </div>
 </div>
 <div class="container my-5">
-    <div class="card  shadow p-3 mb-5 bg-white rounded">
+    <div class="card  shadow p-3 mb-5 bg-white rounded ">
         @if ($cartItems->count() > 0)
-        <div class="card-body">
+        <div class="card-body cartItems">
             @foreach($cartItems as $item)
             <div class="row product_data">
                 <div class="col-md-2 my-auto">

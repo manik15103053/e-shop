@@ -64,7 +64,9 @@ $(document).ready(function(){
         }
     });
 
-    $('.delete-cart-item').click(function(e){
+    // $('.delete-cart-item').click(function(e){
+        $(document).on('click', '.delete-cart-item', function(e){
+
         e.preventDefault();
         var prod_id = $(this).closest('.product_data').find('.prod_id').val();
 
@@ -76,7 +78,12 @@ $(document).ready(function(){
             '_token': '{{ csrf_token() }}',
         },
         success:function (response){
-            window.location.reload();
+            // window.location.reload();
+            
+            loadCart();
+            $('.cartItems').load(location.href + " .cartItems", function(){
+                updateTotal()
+            });
             if(response.success){
                 toastr.success('Product Deleted Successfully');
             }else{
@@ -159,7 +166,9 @@ $(document).ready(function(){
     });
 
     //remove Wishlist
-    $('.removeWishlist').click(function(e){
+    // $('.removeWishlist').click(function(e){
+        $(document).on('click', '.removeWishlist', function(e){
+
         e.preventDefault();
 
         var product_id = $(this).closest('.product_data').find('.prod_id').val();
@@ -177,7 +186,9 @@ $(document).ready(function(){
                 'product_id' : product_id
             },
             success:function(response){
-                window.location.reload();
+                // window.location.reload();
+                loadWishlit()
+                $('.wishlists').load(location.href + ' .wishlists');
                 if (response.success) {
                     toastr.success(response.success);
                 } else {
@@ -212,6 +223,34 @@ $(document).ready(function(){
             }
         });
     }
+
     loadWishlit()
     loadCart()
+
+    //Review Product
+//     $('.reviewBtn').click(function (e) {
+//     e.preventDefault();
+
+//     var prodId = $(this).data('prod-id'); // Assuming you store prod_id in a data attribute
+//     var userReview = $(this).closest('.product_data').find('.user_review').val();
+
+//     $.ajax({
+//         method: "POST",
+//         url: "/add-user-review",
+//         data: {
+//             'prod_id': prodId,
+//             'user_review': userReview,
+//             '_token': $('meta[name="csrf-token"]').attr('content'), // Add CSRF token
+//         },
+//         success: function (response) {
+//             console.log(response);
+//             if (response.success) {
+//                 toastr.success(response.success);
+//             } else {
+//                 toastr.error(response.error);
+//             }
+//         }
+//     });
+// });
+
 });
