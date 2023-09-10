@@ -5,7 +5,7 @@
         <form action="{{ route('serch-product') }}" method="post">
           @csrf
           <div class="input-group">
-            <input type="search" class="form-control" id="serch_product" value="{{ Session::get('product') ? Session::get('product') : old('serch_product') }}" placeholder="Search Product" name="serch_product" required>
+            <input type="search" class="form-control" id="serch_product" value="{{ Session::get('product') ? Session::get('product') : old('serch_product') }}" placeholder="Search Product" name="serch_product" required >
             <button type="submit" class="input-group-text"><i class="fa fa-search"></i></button>
           </div>
         </form>    
@@ -31,7 +31,6 @@
               <span class="badge badge-pill bg-success wishlist-count">0</span>
             </a>
           </li>
-          
           @guest
           @if(Route::has('login'))
             <li class="nav-item">
@@ -63,7 +62,6 @@
             </ul>
           </li>
           @endguest
-          
           
         </ul>
       </div>
